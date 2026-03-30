@@ -200,8 +200,19 @@ static NSDictionary<NSString *, NSValue *> *FVPGetPlayerItemObservations(void) {
 
 - (void)itemDidPlayToEndTime:(NSNotification *)notification {
   if (_isLooping) {
+    if (_eventSink) {
+        _eventSink(@{@"event" : @"loopPlaybackEnd", @"isLoopPlaybackEnd" : @YES});
+    }
+
     AVPlayerItem *p = [notification object];
-    [p seekToTime:kCMTimeZero completionHandler:nil];
+    __weak typeof(self) weakSelf = self;
+    [p seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+            if(weakSelf.eventSink) {
+                weakSelf.eventSink(@{@"event" : @"loopPlaybackEnd", @"isLoopPlaybackEnd" : @NO});
+            }
+        });
+    }];
   } else {
     [self.eventListener videoPlayerDidComplete];
   }

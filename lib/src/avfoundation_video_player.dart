@@ -319,6 +319,10 @@ class _PlayerInstance {
         ),
       ),
       'completed' => VideoEvent(eventType: VideoEventType.completed),
+      'loopPlaybackEnd' => VideoEvent(
+        eventType: VideoEventType.loopPlaybackEnd,
+        isLoopPlaybackEnd: map['isLoopPlaybackEnd'] as bool,
+      ),
       'bufferingUpdate' => VideoEvent(
         buffered: (map['values'] as List<dynamic>)
             .map<DurationRange>(_toDurationRange)
