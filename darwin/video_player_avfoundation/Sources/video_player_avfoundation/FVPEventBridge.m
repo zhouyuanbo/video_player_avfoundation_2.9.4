@@ -103,6 +103,10 @@
   [self sendOrQueue:@{@"event" : @"isPlayingStateUpdate", @"isPlaying" : @(playing)}];
 }
 
+- (void)videoPlayerLoopPlaybackEnd:(BOOL)isLoopPlaybackEnd {
+    [self sendOrQueue:@{@"event" : @"loopPlaybackEnd", @"isLoopPlaybackEnd" : @(isLoopPlaybackEnd)}];
+}
+
 - (void)videoPlayerWasDisposed {
   [self.eventChannel setStreamHandler:nil];
 }

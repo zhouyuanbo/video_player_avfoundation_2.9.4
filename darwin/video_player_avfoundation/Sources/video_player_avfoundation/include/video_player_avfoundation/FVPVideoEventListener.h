@@ -27,6 +27,7 @@
 - (void)videoPlayerDidUpdateBufferRegions:(NSArray<NSArray<NSNumber *> *> *)regions;
 /// Called when the player starts or stops playing.
 - (void)videoPlayerDidSetPlaying:(BOOL)playing;
+- (void)videoPlayerLoopPlaybackEnd:(BOOL)isLoopPlaybackEnd;
 /// Called when the video player has been disposed on the Dart side.
 - (void)videoPlayerWasDisposed;
 @end
